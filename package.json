@@ -41,6 +41,7 @@
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
+    "d3": "^3.5.17",
     "three": "^0.86.0"
   },
   "repository": {
