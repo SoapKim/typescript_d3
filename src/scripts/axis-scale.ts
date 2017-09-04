@@ -4,8 +4,7 @@ import { COMMA } from "./comma";
 /* 轴和坐标系
  */
 export class AxisChart {
-    constructor(public greeting: string) {
-
+    constructor() {
     }
     /**
      * 绘制坐标轴
@@ -19,10 +18,8 @@ export class AxisChart {
      * @param y 绘制起点y
      */
     public AxisChartTickValues(contain: any,
-        domain: any, range: any, tickValue: any, tickFormat: string, innerTick: number, outerTick: number,
-        type: COMMA.ScaleType, arg: any,
-        orient: string, x: number, y: number) {
-        let scale = this.Scale(domain, range, type, arg);
+        tickValue: any, tickFormat: string, innerTick: number, outerTick: number,
+        scale: any, orient: string, x: number, y: number) {
         let axis = this.Axis(scale, orient, innerTick, outerTick, tickFormat);
         axis.tickValues(tickValue);
         let gAxis = contain.append("g")
@@ -42,11 +39,9 @@ export class AxisChart {
      * @param x 绘制起点x
      * @param y 绘制起点y
      */
-    public AxisChart(contain: any, domain: any, range: any,
+    public AxisChart(contain: any,
         ticks: number, tickFormat: string, innerTick: number, outerTick: number,
-        type: COMMA.ScaleType, arg: any,
-        orient: string, x: number, y: number) {
-        let scale = this.Scale(domain, range, type, arg);
+        scale: any, orient: string, x: number, y: number) {
         let axis = this.Axis(scale, orient, innerTick, outerTick, tickFormat);
         axis.ticks(ticks);
         let gAxis = contain.append("g")

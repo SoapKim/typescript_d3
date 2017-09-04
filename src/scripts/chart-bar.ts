@@ -7,7 +7,10 @@ export class BarChart {
   private fontAnchor: string;
   private fontColor: any;
   private fontSize: any;
-  private contain:any;
+  private rectStep: number;
+  private rectWidth: number;
+  private fillColor: any;
+  private chart: any;
   /* 创建柱状图
    * dataset 数据集
    * contain 绘制的父容器
@@ -16,12 +19,10 @@ export class BarChart {
    * rectWidth 柱形图的宽度
    * fillColor 柱形图填充色
    */
-  constructor(public dataset: any, contain: any,
-    private padding: any, private rectStep: number, private rectWidth: number, private fillColor: any) {
-      this.contain = contain.append("g")
-        .attr("width",contain.attr("width"))
-        .attr("height",contain.attr("height"));
-    this.updateRect();
+  constructor(private dataset: any, contain: any, private padding: any) {
+    this.chart = contain.append("g")
+      .attr("width", contain.attr("width"))
+      .attr("height", contain.attr("height"));
   }
 
   /* 追加文字
@@ -37,6 +38,12 @@ export class BarChart {
     return this.updateText();
   }
 
+  public BarChart(rectStep: number, rectWidth: number, fillColor: any) {
+    this.rectStep = rectStep;
+    this.rectWidth = rectWidth;
+    this.fillColor = fillColor;
+    this.update();
+  }
   public update() {
     this.updateRect();
     if (this.isFont) {
@@ -44,28 +51,27 @@ export class BarChart {
     }
   }
   private updateText() {
-    let textUpdate = this.contain.selectAll("text")
+    let textUpdate = this.chart.selectAll("text")
       .data(this.dataset);
     let textEnter = textUpdate.enter();
     let textExit = textUpdate.exit();
-
-    this.setText(textUpdate, this.padding, this.rectStep, this.rectWidth, this.contain.attr("height"),
+    let height = this.chart.attr("height");
+    this.setText(textUpdate, this.padding, this.rectStep, this.rectWidth, height,
       this.fontAnchor, this.fontColor, this.fontSize);
-    this.setText(textEnter.append("text"), this.padding, this.rectStep, this.rectWidth, this.contain.attr("height"),
+    this.setText(textEnter.append("text"), this.padding, this.rectStep, this.rectWidth, height,
       this.fontAnchor, this.fontColor, this.fontSize);
     textExit.remove();
     return textUpdate;
   }
 
   private updateRect() {
-    let rectUpdate = this.contain.selectAll("rect")
-      .data(this.dataset);
+    let rectUpdate = this.chart.selectAll("rect").data(this.dataset);
     //  更新数据
     let rectEnter = rectUpdate.enter();
     let rectExit = rectUpdate.exit();
 
-    this.setRect(rectUpdate, this.padding, this.contain.attr("height"), this.rectWidth, this.rectStep, this.fillColor);
-    this.setRect(rectEnter.append("rect"), this.padding, this.contain.attr("height"), this.rectWidth, this.rectStep, this.fillColor);
+    this.setRect(rectUpdate, this.padding, this.chart.attr("height"), this.rectWidth, this.rectStep, this.fillColor);
+    this.setRect(rectEnter.append("rect"), this.padding, this.chart.attr("height"), this.rectWidth, this.rectStep, this.fillColor);
     rectExit.remove();
   }
 

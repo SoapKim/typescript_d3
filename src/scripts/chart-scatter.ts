@@ -4,16 +4,16 @@ import * as D3 from "d3";
  */
 export class ScatterChart {
     private chart: any;
-    constructor(contain: any, private padding: any, private dataset: any, fillColor: any, private xScale: any, private yScale: any, radius: number) {
-        this.ScatterChart(contain, fillColor, radius, xScale, yScale);
-    }
-    private ScatterChart(contain: any, fillColor: any, r: number, xScale: any, yScale: any) {
-        let height = contain.attr("height");
+    constructor(contain: any, private padding: any) {
         this.chart = contain.append("g")
             .attr("width", contain.attr("width"))
-            .attr("height", height);
+            .attr("height", contain.attr("height"));
+    }
+
+    public ScatterChart(dataset: any, fillColor: any, r: number, xScale: any, yScale: any) {
+        let height = this.chart.attr("height");
         let scatterUpdate = this.chart.selectAll("cirlce")
-            .data(this.dataset);
+            .data(dataset);
         let scatterEnter = scatterUpdate.enter();
         let scatterExit = scatterUpdate.exit();
         this.setScatter(scatterUpdate, fillColor, this.padding, xScale, yScale, height, r);

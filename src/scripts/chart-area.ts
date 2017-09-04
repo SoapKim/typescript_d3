@@ -6,14 +6,13 @@ import { COMMA } from "./comma";
  */
 export class AreaChart {
     private chart: any;
-    constructor(private dataset: any, contain: any, private padding: any,
-        private fillColor: any, private stroke: any, private strokeWidth: number) {
+    constructor(contain: any, private padding: any) {
         this.chart = contain.append("g")
             .attr("width", contain.attr("width"))
             .attr("height", contain.attr("height"));
     }
 
-    public AreaChart(direct: string,interpolate:any) {
+    public AreaChart(dataset: any, fillColor: any, stroke: any, strokeWidth: number, direct: string, interpolate: any) {
         let areaPath: any;
         if (direct == COMMA.Constant.ORINET.left ||
             direct == COMMA.Constant.ORINET.right) {
@@ -24,11 +23,11 @@ export class AreaChart {
         areaPath.interpolate(interpolate);
         // path
         this.chart.append("path")
-            .attr("d", areaPath(this.dataset))
+            .attr("d", areaPath(dataset))
             .style({
-                "stroke": this.stroke,
-                "stroke-width": this.strokeWidth,
-                "fill": this.fillColor,
+                "stroke": stroke,
+                "stroke-width": strokeWidth,
+                "fill": fillColor,
             });
     }
     private VerticalArea(height: number, padding: any) {
@@ -37,7 +36,7 @@ export class AreaChart {
             .y0((d, i) => ((height - padding.bottom) * 0.5))
             .y1((d, i) => ((height - padding.bottom) * 0.5 - d));
     }
-    
+
     private HorizontalArea(width: number, padding: any) {
         return D3.svg.area()
             .y((d, i) => (50 + i * 80))
