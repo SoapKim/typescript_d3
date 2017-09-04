@@ -4,6 +4,7 @@ import { BarChart } from "./chart-bar";
 import { COMMA } from "./comma";
 import { AxisChart } from "./axis-scale";
 import { ScatterChart } from "./chart-scatter";
+import { AreaChart } from "./chart-area";
 
 export class GreeterD3 {
   constructor(public greeting: string) {
@@ -12,8 +13,9 @@ export class GreeterD3 {
   private barChart: BarChart;
   private axisChart: AxisChart;
   private scatterChart: ScatterChart;
+  private areaChart: AreaChart;
   private dataset: any;
-  private index:number = 0.0;
+  private index: number = 0.0;
   public drawBarChart(dataset: any, contain: any, isFont: boolean) {
     this.index++;
     this.dataset = dataset;
@@ -59,14 +61,22 @@ export class GreeterD3 {
       orient, x, y);
   }
   public drawScatterChart(contain: any, xAxisWidth: number, yAxisHeight: number, dataset: any, radius: number) {
-      let xScale = D3.scale.linear()
-        .domain([0, (1.2 * D3.max(dataset, (d) => (d[0])))])
-        .range([0, xAxisWidth]);
-      let yScale = D3.scale.linear()
-        .domain([0, 1.2 * D3.max(dataset, (d) => (d[1]))])
-        .range([0, yAxisHeight]);
-      this.index++;
-      let padding: any = { top: 0, right: 0, bottom: contain.attr("height")/this.index, left: 0 };
-      this.scatterChart = new ScatterChart(contain, padding, dataset, COMMA.Constant.COLOR.black, xScale, yScale, radius);
+    let xScale = D3.scale.linear()
+      .domain([0, (1.2 * D3.max(dataset, (d) => (d[0])))])
+      .range([0, xAxisWidth]);
+    let yScale = D3.scale.linear()
+      .domain([0, 1.2 * D3.max(dataset, (d) => (d[1]))])
+      .range([0, yAxisHeight]);
+    this.index++;
+    let padding: any = { top: 0, right: 0, bottom: contain.attr("height") / this.index, left: 0 };
+    this.scatterChart = new ScatterChart(contain, padding, dataset, COMMA.Constant.COLOR.black, xScale, yScale, radius);
+  }
+
+  public drawAreaChart(dataset: any, contain: any) {
+    let strokeWidth: number;
+    this.index++;
+    let padding: any = { top: 0, right: 0, bottom: contain.attr("height") / this.index, left: 0 };
+    this.areaChart = new AreaChart(dataset, contain, padding, COMMA.Constant.COLOR.yellow, COMMA.Constant.COLOR.black, strokeWidth);
+    this.areaChart.AreaChart(COMMA.Constant.ORINET.bottom,COMMA.Constant.INTERPOLATER.basis);
   }
 };
