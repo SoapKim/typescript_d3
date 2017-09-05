@@ -12,8 +12,7 @@ export class ScatterChart {
 
     public ScatterChart(dataset: any, fillColor: any, r: number, xScale: any, yScale: any) {
         let height = this.chart.attr("height");
-        let scatterUpdate = this.chart.selectAll("cirlce")
-            .data(dataset);
+        let scatterUpdate = this.chart.selectAll("cirlce").data(dataset);
         let scatterEnter = scatterUpdate.enter();
         let scatterExit = scatterUpdate.exit();
         this.setScatter(scatterUpdate, fillColor, this.padding, xScale, yScale, height, r);

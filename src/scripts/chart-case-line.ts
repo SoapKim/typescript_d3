@@ -11,8 +11,26 @@ export class LineChartCase {
             .attr("width", contain.attr("width"))
             .attr("height", contain.attr("height"));
     }
+    /**
+     * 
+     * @param dataset 支持的数格式如下
+     * let lineData = [{
+     *     region: "china",
+     *     value: [[2000, 11920], [2001, 13170], [2002, 14550], [2003, 16500], [2004, 19440], [2005, 22870],
+     *     [2006, 27930], [2007, 35040], [2008, 45470], [2009, 51050], [2010, 59490]]
+     * }, {
+     *     region: "japan",
+     *     value: [[2000, 41920], [2001, 43170], [2002, 34550], [2003, 46500], [2004, 49440], [2005, 42870],
+     *     [2006, 47930], [2007, 45040], [2008, 45470], [2009, 41050], [2010, 54490]]
+     * }];
+     * @param xDomain 
+     * @param yDomain 
+     * @param strokeWidth 
+     * @param strokeColor 
+     * @param interpolate 
+     */
     public LineChartCase(dataset: any, xDomain: any, yDomain: any,
-         strokeWidth: number, strokeColor: any,interprolate:string) {
+         strokeWidth: number, strokeColor: any,interpolate:string) {
         let axis = new AxisChart();
         let width = this.chart.attr("width");
         let height = this.chart.attr("height");
@@ -23,8 +41,8 @@ export class LineChartCase {
         let linePath = D3.svg.line()
             .x((d) => (xScale(d[0])))
             .y((d) => (yScale(d[1])));
-        if(interprolate){
-            linePath.interprolate(interprolate);
+        if(interpolate){
+            linePath.interpolate(interpolate);
         }
 
         this.chart.selectAll("path")

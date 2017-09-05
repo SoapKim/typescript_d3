@@ -13,6 +13,19 @@ let height: number = 800;
 let svg = D3.select("#canvas-frame").append("svg")
     .attr("width", width)
     .attr("height", height);
+let svgLine = D3.select("#lineChart").append("svg")
+    .attr("width", width)
+    .attr("height", height * 0.5);
+let svgScatter = D3.select("#scatterChart").append("svg")
+    .attr("width", width)
+    .attr("height", height * 0.5);
+let svgPie = D3.select("#pieChart").append("svg")
+    .attr("width", width)
+    .attr("height", height * 0.5);
+let svgBar = D3.select("#barChart").append("svg")
+    .attr("width", 500)
+    .attr("height", 500);
+
 let isFont = true;
 
 // 关于绘制条形图
@@ -48,4 +61,26 @@ let lineData = [{
     value: [[2000, 41920], [2001, 43170], [2002, 34550], [2003, 46500], [2004, 49440], [2005, 42870],
     [2006, 47930], [2007, 45040], [2008, 45470], [2009, 41050], [2010, 54490]]
 }];
-greeter.drawLineChart(lineData,svg,COMMA.Constant.INTERPOLATER.basis);
+greeter.drawLineChart(lineData, svgLine, COMMA.Constant.INTERPOLATER.basis);
+// 
+greeter.drawScatterCaseChart(scatterDataset, svgScatter, 2000, COMMA.Constant.COLOR.black);
+//
+let pieDataset = [["小米", 60.8], ["三星", 58.4], ["联想", 47.3], ["苹果", 46.6], ["华为", 41.3], ["酷派", 40.1], ["其他", 111.5]];
+
+greeter.drawPieChartCase(svgPie, pieDataset, D3.scale.category20(), 10, 100);
+//
+//1. 确定初始数据	
+//创建一个生成正态分布的函数，其中平均值为170，标准差为10
+let rand = D3.random.normal(170, 10);
+//定义一个数组，用于保存正态分布生成的数值
+let barDataset: any = [];
+//根据正态分布生成100个随机数，插入到数组dataset中
+for (let i = 0; i < 100; i++) {
+    barDataset.push(rand());
+}
+let binNum = 20;
+//console.log(barDataset);
+let range=[130,210];
+greeter.drawBarChartCase(svgBar,range,binNum,barDataset);
+document.getElementById("barRect").onclick = () => greeter.showhideBar.call(greeter);
+document.getElementById("barLine").onclick = () => greeter.showhideLine.call(greeter);

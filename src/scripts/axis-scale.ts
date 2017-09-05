@@ -21,7 +21,9 @@ export class AxisChart {
         tickValue: any, tickFormat: string, innerTick: number, outerTick: number,
         scale: any, orient: string, x: number, y: number) {
         let axis = this.Axis(scale, orient, innerTick, outerTick, tickFormat);
-        axis.tickValues(tickValue);
+        if(tickValue){
+            axis.tickValues(tickValue);
+        }
         let gAxis = contain.append("g")
             .attr("transform", "translate(" + x + "," + y + ")")
             .attr("class", "axis")
@@ -43,7 +45,9 @@ export class AxisChart {
         ticks: number, tickFormat: string, innerTick: number, outerTick: number,
         scale: any, orient: string, x: number, y: number) {
         let axis = this.Axis(scale, orient, innerTick, outerTick, tickFormat);
-        axis.ticks(ticks);
+        if(ticks){
+            axis.ticks(ticks);
+        }
         let gAxis = contain.append("g")
             .attr("transform", "translate(" + x + "," + y + ")")
             .attr("class", "axis")
@@ -74,6 +78,11 @@ export class AxisChart {
                 return D3.scale.log()
                     .domain(domain)
                     .range(range);
+            }
+            case COMMA.ScaleType.Ordinal:{
+                return D3.scale.ordinal()
+                    .domain(domain)
+                    .rangeRoundBands(range,arg[0]);
             }
             default:
                 return null;

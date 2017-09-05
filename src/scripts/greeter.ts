@@ -7,6 +7,9 @@ import { ScatterChart } from "./chart-scatter";
 import { AreaChart } from "./chart-area";
 import { ArcChart } from "./chart-arc";
 import { LineChartCase } from "./chart-case-line";
+import { ScatterChartCase } from "./chart-case-scatter";
+import { PieChartCase } from "./chart-case-pie";
+import { BarChartCase } from "./chart-case-bar";
 
 export class GreeterD3 {
   constructor(public greeting: string) {
@@ -17,6 +20,7 @@ export class GreeterD3 {
   private scatterChart: ScatterChart;
   private areaChart: AreaChart;
   private arcChart: ArcChart;
+  private chartBarCase: BarChartCase;
   private dataset: any;
   private index: number = 0.0;
   public drawBarChart(dataset: any, contain: any, isFont: boolean) {
@@ -95,12 +99,11 @@ export class GreeterD3 {
       , COMMA.Constant.TEXT_ANCHOR.middle, fontSize, COMMA.Constant.COLOR.black);
   }
 
-  public drawLineChart(dataset: any, contain: any,interprolate:string) {
+  public drawLineChart(dataset: any, contain: any, interprolate: string) {
     let colors = [D3.rgb(0, 0, 255), D3.rgb(0, 255, 0)];
     let fun = (d, i) => (colors[i]);
     this.index++;
-    let height = contain.attr("height");
-    let padding: any = { top: height * 2 / this.index, right: 0, bottom: height / this.index, left: 50 };
+    let padding: any = { top: 0, right: 0, bottom: 50, left: 50 };
     let lineChartCase: LineChartCase = new LineChartCase(padding, contain);
     let strokeWidth = 1;
     let yMin = dataset[0].value[0][1];
@@ -108,21 +111,79 @@ export class GreeterD3 {
     let xMin = dataset[0].value[0][0];
     let xMax = dataset[0].value[0][0];
     for (let i = 0; i < dataset.length; ++i) {
-        let xRange = D3.extent(dataset[i].value, (d) => (d[0]));
-        let yRange = D3.extent(dataset[i].value, (d) => (d[1]));
-        if (yMin > yRange[0]) {
-            yMin = yRange[0];
-        }
-        if (yMax < yRange[1]) {
-            yMax = yRange[1];
-        }
-        if (xMin > xRange[0]) {
-            xMin = xRange[0];
-        }
-        if (xMax < xRange[1]) {
-            xMax = xRange[1];
-        }
+      let xRange = D3.extent(dataset[i].value, (d) => (d[0]));
+      let yRange = D3.extent(dataset[i].value, (d) => (d[1]));
+      if (yMin > yRange[0]) {
+        yMin = yRange[0];
+      }
+      if (yMax < yRange[1]) {
+        yMax = yRange[1];
+      }
+      if (xMin > xRange[0]) {
+        xMin = xRange[0];
+      }
+      if (xMax < xRange[1]) {
+        xMax = xRange[1];
+      }
     }
-    lineChartCase.LineChartCase(dataset,[xMin, xMax],[yMin, yMax], strokeWidth, fun,interprolate);
+    lineChartCase.LineChartCase(dataset, [xMin, xMax], [yMin, yMax], strokeWidth, fun, interprolate);
+  }
+  public drawScatterCaseChart(dataset: any, contain: any, duration: any, fillColor: any) {
+    let colors = [D3.rgb(0, 0, 255), D3.rgb(0, 255, 0)];
+    let fun = (d, i) => (colors[i]);
+    this.index++;
+    let padding: any = { top: 0, right: 0, bottom: 50, left: 50 };
+    let yMin = dataset[0][1];
+    let yMax = dataset[0][1];
+    let xMin = dataset[0][0];
+    let xMax = dataset[0][0];
+    for (let i = 0; i < dataset.length; ++i) {
+      let xRange = D3.extent(dataset[i], (d) => (d[0]));
+      let yRange = D3.extent(dataset[i], (d) => (d[1]));
+      if (yMin > yRange[0]) {
+        yMin = yRange[0];
+      }
+      if (yMax < yRange[1]) {
+        yMax = yRange[1];
+      }
+      if (xMin > xRange[0]) {
+        xMin = xRange[0];
+      }
+      if (xMax < xRange[1]) {
+        xMax = xRange[1];
+      }
+    }
+    let scatterChartCase: ScatterChartCase = new ScatterChartCase(contain, padding);
+    scatterChartCase.ScatterChartCase(dataset, [0, 1], [0, 1], duration, fillColor);
+  }
+  public drawPieChartCase(contain: any, dataset: any, color: any, innerRadius: number, outerRadius: number) {
+    let padding: any = { top: 0, right: 0, bottom: 50, left: 50 };
+    let pieChartCase: PieChartCase = new PieChartCase(contain, padding);
+    let x = contain.attr("width") * 0.5;
+    let y = contain.attr("height") * 0.5;
+    let arcAngle = [Math.PI * 0.2, Math.PI * 1.5];
+    pieChartCase.PieChart(dataset, arcAngle, innerRadius, outerRadius, color, x, y);
+    let sum = D3.sum(dataset, (d) => (d[1]));
+    function percent(d) {
+      let tm = Number(d.value) / sum * 100;
+      return tm.toFixed(1) + "%";
+    }
+    pieChartCase.appendText(COMMA.Constant.TEXT_ANCHOR.middle, percent, 14);
+    function direct(d) {
+      return d.data[0];
+    }
+    pieChartCase.appendDirectText(COMMA.Constant.COLOR.black, COMMA.Constant.TEXT_ANCHOR.middle, 20, direct);
+  }
+
+  public drawBarChartCase(contain: any, range: any, bins: number, dataset: any) {
+    let padding: any = { top: 30, right: 30, bottom: 30, left: 30 };
+    this.chartBarCase = new BarChartCase(contain, padding);
+    this.chartBarCase.BarCaseChart(dataset, range, bins);
+  }
+  public showhideBar() {
+    this.chartBarCase.showRect();
+  }
+  public showhideLine() {
+    this.chartBarCase.showLine();
   }
 };

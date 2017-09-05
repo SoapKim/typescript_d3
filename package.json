@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "d3": "^3.5.17",
+    "d3-downloadable": "^2.0.0",
     "three": "^0.86.0"
   },
   "repository": {
