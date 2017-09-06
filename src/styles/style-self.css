@@ -9,3 +9,8 @@
      font-family: sans-serif;
      font-size:11px;
  }
+.linePath{
+    fill: none;
+	stroke: black;
+	stroke-width: 3px;
+}

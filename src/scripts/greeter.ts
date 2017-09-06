@@ -175,10 +175,10 @@ export class GreeterD3 {
     pieChartCase.appendDirectText(COMMA.Constant.COLOR.black, COMMA.Constant.TEXT_ANCHOR.middle, 20, direct);
   }
 
-  public drawBarChartCase(contain: any, range: any, bins: number, dataset: any) {
+  public drawBarChartCase(contain: any, range: any, bins: any, dataset: any) {
     let padding: any = { top: 30, right: 30, bottom: 30, left: 30 };
     this.chartBarCase = new BarChartCase(contain, padding);
-    this.chartBarCase.BarCaseChart(dataset, range, bins);
+    this.chartBarCase.BarCaseChart(dataset, range, bins,COMMA.Constant.COLOR.steelblue);
   }
   public showhideBar() {
     this.chartBarCase.showRect();

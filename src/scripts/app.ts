@@ -78,9 +78,9 @@ let barDataset: any = [];
 for (let i = 0; i < 100; i++) {
     barDataset.push(rand());
 }
-let binNum = 20;
+let bins= 20;
 //console.log(barDataset);
 let range=[130,210];
-greeter.drawBarChartCase(svgBar,range,binNum,barDataset);
+greeter.drawBarChartCase(svgBar,range,bins,barDataset);
 document.getElementById("barRect").onclick = () => greeter.showhideBar.call(greeter);
 document.getElementById("barLine").onclick = () => greeter.showhideLine.call(greeter);
