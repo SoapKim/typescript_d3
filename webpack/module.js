@@ -19,7 +19,10 @@ module.exports = {
       use: 'imports-loader?THREE=three'
     }, {
       test: /\.css$/,
-      use: [ 'style-loader', 'css-loader' ]
+      use: ['style-loader', 'css-loader']
+    }, {
+      test: /\.json$/,
+      loader: 'json-loader'
     }
   ]
 };

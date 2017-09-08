@@ -4,8 +4,6 @@ import { COMMA } from "./comma";
 /* 轴和坐标系
  */
 export class AxisChart {
-    constructor() {
-    }
     /**
      * 绘制坐标轴
      * @param contain  绘制容器
@@ -108,5 +106,4 @@ export class AxisChart {
         }
         return axis;
     }
-
 }

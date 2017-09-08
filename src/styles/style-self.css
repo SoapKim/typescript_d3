@@ -1,16 +1,214 @@
+/*
+折线图
+*/
+.linePath{
+  fill: none;
+  stroke: black;
+	stroke-width: 3px;
+}
+/*
+散点图
+*/
+.scatterCaseCirle{
+  fill: black;
+}
+.scatterCircle{
+  fill: black;
+}
+/*
+区域图
+*/
+.areaPath{
+  fill:yellow;
+  stroke: steelblue;
+}
+/*
+弧图
+*/
+.arcInnerText{
 
- .axis path,
- .axis line{
-     fill:none;
-     stroke: black;
-     shape-rendering:crispEdges;
+}
+.arcInnerPath{
+  
+}
+/*
+条形图
+*/
+.barText{
+  text-anchor: middle;
+  fill: white;
+  font-size: 16;
+}
+.barRect{
+  fill:steelblue;
+}
+.histogramText{
+  text-anchor: middle;
+  font-size: 16;
+}
+.histogramRect{
+  fill:steelblue;
+}
+.histogramPath{
+  fill: none;
+  stroke: black;
+	stroke-width: 3px;
+}
+
+/*
+饼图pie
+*/
+.pieOuterText{
+  text-anchor: middle;
+	font-size: 16;
+}
+  
+.pieInnerText{
+	text-anchor: middle;
+	font-size: 11;
+}  
+.pieOuterLine{
+	stroke: black;
+}
+.pieInnerPath{
+	stroke: black;
+}
+/*
+坐标轴
+*/
+.axis path,
+.axis line{
+  fill:none;
+  stroke: black;
+  shape-rendering:crispEdges;
  }
  .axis text{
-     font-family: sans-serif;
-     font-size:11px;
+  font-family: sans-serif;
+  font-size:11px;
  }
-.linePath{
-    fill: none;
+ /*
+ 弦图
+ */
+
+.chordOuterPath{
+  stroke: black;
+}
+  
+.chordOuterText{
+	text-anchor: middle;
+	font-size: 16;
+}  
+.chordInnerPath{
 	stroke: black;
-	stroke-width: 3px;
+}
+/*捆图 bundle*/
+.bundleLink {
+  fill: none;
+	stroke: black;
+	stroke-opacity: .5;
+	stroke-width: 8px;
+}
+.bundleText{
+  text-anchor: middle;
+}
+.bundleNode{
+  
+}
+.bundleCircle{
+  
+}
+/*
+力导向图
+*/
+.forceLine {
+  stroke: #444 ;
+  stroke-width: 2 ;
+}
+   
+.forceCircle {
+  stroke: black ;
+  stroke-width: 2 ;
+}
+
+.forceText {
+  fill: black ;
+  text-anchor: middle ;
+  font-size: 20;
+  font-family: arial;
+}
+ /*
+ 簇、树图
+ */
+.clusterNode circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.clusterNode {
+  font: 12px sans-serif;
+}
+
+.clusterLink {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+.clusterNode text{
+  font-size: 12px;
+  font-family: simsun;
+  font-weight: bold;
+}
+/*
+包图
+*/
+.packNode {
+  fill: rgb(150, 150, 150);
+  fill-opacity: 0.25;
+  stroke: black;
+  stroke-width: 2px;
+}
+
+.packLeafnode {
+  fill: rgb(255, 180, 0);
+  fill-opacity: 1;
+}
+
+.packNodeText {
+  fill: black;
+  font-size: 14px;
+  font-family: simsun;
+  text-anchor: middle;
+}
+/*
+分区图
+*/
+.paritionNodeText {
+	writing-mode: tb;
+	font-family: simsun;
+	font-size: 16px;
+}
+.paritionRect {
+  stroke:white;
+}
+.paritionPath{
+  stroke: white;
+}
+.paritionNodeCircleText{
+	font-family: simsun;
+  font-size: 16px;
+  text-anchor: middle;
+}
+/*
+树图
+*/
+.treemapNodeRect {
+	stroke: white;
+	stroke-width: 2px;
+}
+  
+.treemapNodeName {
+	fill: white;
+	font-size: 12px;
+	font-family: simsun;
 }
